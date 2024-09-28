@@ -2,6 +2,9 @@
 name = "sled_driver_macros"
 version = "0.1.0"
 edition = "2021"
+description = "Procedural macros for use the in the sled crate."
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/DavJCosby/sled_driver_macros"
 
 [dependencies]
 syn = {version = "2.0", features = ["full"]}
