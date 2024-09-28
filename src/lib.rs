@@ -1,5 +1,5 @@
 #[allow(dead_code)]
-mod sled {
+mod spatial_led {
     struct Sled;
     struct BufferContainer;
     struct Filters;
