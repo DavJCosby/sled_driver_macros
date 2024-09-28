@@ -15,14 +15,14 @@ use syn::{parse_macro_input, parse_quote, FnArg, ItemFn, PatType, Type, TypePath
 /// This saves you from having to write lengthy method signatures and bringing structs into scope that you won't use.
 ///
 /// For example:
-/// ```rust, no_run
+/// ```rust, ignore
 /// #[startup_commands]
 /// fn startup(buffers: &mut BufferContainer) -> SledResult {
 ///     //--snip--//
 /// }
 /// ```
 /// Gets turned into:
-/// ```rust, no_run
+/// ```rust, ignore
 /// fn startup(
 ///     _: &mut Sled,
 ///     buffers: &mut BufferContainer,
@@ -34,9 +34,9 @@ use syn::{parse_macro_input, parse_quote, FnArg, ItemFn, PatType, Type, TypePath
 #[proc_macro_attribute]
 pub fn startup_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let params_template = vec![
-        parse_quote!(&mut sled::Sled),
-        parse_quote!(&mut sled::BufferContainer),
-        parse_quote!(&mut sled::Filters),
+        parse_quote!(&mut spatial_led::Sled),
+        parse_quote!(&mut spatial_led::BufferContainer),
+        parse_quote!(&mut spatial_led::Filters),
     ];
 
     auto_fill_params(item, params_template)
@@ -47,14 +47,14 @@ pub fn startup_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
 /// This saves you from having to write lengthy method signatures and bringing structs into scope that you won't use.
 ///
 /// For example:
-/// ```rust, no_run
+/// ```rust, ignore
 /// #[draw_commands]
 /// fn draw(sled: &mut Sled, time: &TimeInfo) -> SledResult {
 ///     //--snip--//
 /// }
 /// ```
 /// Gets turned into:
-/// ```rust, no_run
+/// ```rust, ignore
 /// fn draw(
 ///     sled: &mut Sled,
 ///     _: &BufferContainer,
@@ -67,10 +67,10 @@ pub fn startup_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
 #[proc_macro_attribute]
 pub fn draw_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let params_template = vec![
-        parse_quote!(&mut sled::Sled),
-        parse_quote!(&sled::BufferContainer),
-        parse_quote!(&sled::Filters),
-        parse_quote!(&sled::TimeInfo),
+        parse_quote!(&mut spatial_led::Sled),
+        parse_quote!(&spatial_led::BufferContainer),
+        parse_quote!(&spatial_led::Filters),
+        parse_quote!(&spatial_led::TimeInfo),
     ];
 
     auto_fill_params(item, params_template)
@@ -82,14 +82,14 @@ pub fn draw_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
 /// This saves you from having to write lengthy method signatures and bringing structs into scope that you won't use.
 ///
 /// For example:
-/// ```rust, no_run
+/// ```rust, ignore
 /// #[draw_commands]
 /// fn compute(filters: &mut Filters, time: &TimeInfo) -> SledResult {
 ///     //--snip--//
 /// }
 /// ```
 /// Gets turned into:
-/// ```rust, no_run
+/// ```rust, ignore
 /// fn compute(
 ///     _: &Sled,
 ///     _: &mut BufferContainer,
@@ -102,10 +102,10 @@ pub fn draw_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
 #[proc_macro_attribute]
 pub fn compute_commands(_attr: TokenStream, item: TokenStream) -> TokenStream {
     let params_template = vec![
-        parse_quote!(&sled::Sled),
-        parse_quote!(&mut sled::BufferContainer),
-        parse_quote!(&mut sled::Filters),
-        parse_quote!(&sled::TimeInfo),
+        parse_quote!(&spatial_led::Sled),
+        parse_quote!(&mut spatial_led::BufferContainer),
+        parse_quote!(&mut spatial_led::Filters),
+        parse_quote!(&spatial_led::TimeInfo),
     ];
 
     auto_fill_params(item, params_template)
